@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SCRIPTDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+SCRIPTDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 #start check
 if [[ ! -f /etc/centos-release ]]; then
@@ -20,6 +20,7 @@ elif [[ $OSVER -eq 8 ]]; then
     dnf install -y salt-minion
 fi
 
+cp "$SCRIPTDIR"/minion.d/* /etc/salt/minion.d/
 hostname -s > /etc/salt/minion_id
 
 systemctl enable salt-minion --now
